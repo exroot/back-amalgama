@@ -5,4 +5,4 @@ class UserSerializer(serializers.ModelSerializer):
     date_of_birth = serializers.CharField(required=True)
     class Meta:
         model = User
-        fields = ['name', 'email', 'is_admin', 'profile_image', 'date_of_birth']
+        fields = ['name', 'email', 'is_admin', 'is_active', 'profile_image', 'date_of_birth']
