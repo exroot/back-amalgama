@@ -28,9 +28,13 @@ class RegistrationSerializer(serializers.ModelSerializer):
         required=True
     )
 
+    is_admin = serializers.BooleanField(
+        required=False
+    )
+
     class Meta:
         model = User
-        fields = ['email', 'password', 'date_of_birth', 'profile_image', 'name']
+        fields = ['email', 'password', 'date_of_birth', 'profile_image', 'name', 'is_active', 'is_admin']
 
     def validate(self, value):
         # validate data
@@ -52,6 +56,8 @@ class LoginSerializer(serializers.Serializer):
     is_admin = serializers.BooleanField(required=False)
     password = serializers.CharField(max_length=128, write_only=True)
     tokens = serializers.SerializerMethodField()
+    is_admin = serializers.CharField(required=False)
+
     def get_tokens(self, user):
         return {
             'refresh': user.token()['refresh'],
@@ -74,7 +80,6 @@ class LogoutSerializer(serializers.Serializer):
 
     def validate(self, attrs):
         self.token = attrs['refresh_token']
-        self.device_token = attrs.get('device_token', None)
         return attrs
 
     def save(self, **kwargs):

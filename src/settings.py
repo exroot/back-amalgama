@@ -46,7 +46,7 @@ INSTALLED_APPS = [
     'src.api.users',
     'src.api.categories',
     'src.api.currencies',
-    'src.api.registries'
+    'src.api.registries',
 ]
 
 AUTH_USER_MODEL = 'users.User'

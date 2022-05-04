@@ -47,9 +47,7 @@ class RegistrationAPIView(generics.GenericAPIView):
         serializer.is_valid(raise_exception=True)
         serializer.save()
         user_data = serializer.data
-        email = user_data['email']
-        created_user = User.objects.get(email=email)
-
+       
         return response.Response(user_data, status=status.HTTP_201_CREATED)
 
 class LoginAPIView(generics.GenericAPIView):

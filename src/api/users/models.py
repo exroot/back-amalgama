@@ -5,7 +5,6 @@ from rest_framework_simplejwt.tokens import RefreshToken
 
 class MyAccountManager(BaseUserManager):
     def create_user(self, email=None, password=None, date_of_birth=None, profile_image=None, name=None, **extra_fields):
-        extra_fields.setdefault('is_admin', False)
         extra_fields.setdefault('is_active', True)
         
         if not email:
@@ -14,7 +13,7 @@ class MyAccountManager(BaseUserManager):
             raise ValueError('Users must have a password')
 
         email = self.normalize_email(email)
-        user = self.model(email=email, date_of_birth=date_of_birth, profile_image=profile_image, name=name)
+        user = self.model(email=email, date_of_birth=date_of_birth, profile_image=profile_image, name=name, **extra_fields)
         user.set_password(password)
         user.save(using=self._db)
         return user
